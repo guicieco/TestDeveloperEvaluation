@@ -10,12 +10,13 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.CreateSale
     {
         public CreateSaleRequestValidator()
         {
-            //RuleFor(user => user.Email).SetValidator(new EmailValidator());
-            //RuleFor(user => user.Discount).NotEmpty().Length(3, 50);
-            //RuleFor(user => user.Password).SetValidator(new PasswordValidator());
-            //RuleFor(user => user.Phone).Matches(@"^\+?[1-9]\d{1,14}$");
-            //RuleFor(user => user.Status).NotEqual(UserStatus.Unknown);
-            //RuleFor(user => user.Role).NotEqual(UserRole.None);
+            RuleForEach(x => x.Products)
+            .ChildRules(products =>
+            {
+                products.RuleFor(p => p.Quantity)
+                    .LessThanOrEqualTo(20)
+                    .WithMessage("It's not allowed to sell more than 20 of the same products");
+            });
         }
     }
 }

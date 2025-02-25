@@ -15,6 +15,13 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale
         public decimal Discount { get; set; } = 0;
         public SaleStatus Status { get; set; } = SaleStatus.Active;
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public List<CreateSaleProduct> Products { get; set; }
+
+        public class CreateSaleProduct
+        {
+            public Guid ProductId { get; set; }
+            public int Quantity { get; set; }
+        }
 
         public ValidationResultDetail Validate()
         {

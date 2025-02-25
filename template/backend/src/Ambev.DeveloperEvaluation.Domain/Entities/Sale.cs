@@ -9,6 +9,7 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities
 {
     public class Sale : BaseEntity
     {
+        public int SaleNumber { get; set; }
         public Guid CustomerId { get; set; }
         public Customer Customer { get; set; }
         public Guid BranchId { get; set; }
@@ -17,5 +18,7 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
         public SaleStatus Status { get; set; }
+        public decimal Total { get; set; }
+        public decimal TotalDiscount { get; set; }
     }
 }

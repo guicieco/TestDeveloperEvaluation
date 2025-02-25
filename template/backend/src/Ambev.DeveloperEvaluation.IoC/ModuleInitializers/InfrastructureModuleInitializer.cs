@@ -19,5 +19,6 @@ public class InfrastructureModuleInitializer : IModuleInitializer
         builder.Services.AddScoped<IUserRepository, UserRepository>();
         builder.Services.AddScoped<ISaleRepository, SaleRepository>();
         builder.Services.AddScoped<ISalePagedRepository, SalePagedRepository>();
+        builder.Services.AddScoped<IProductRepository, ProductRepository>();
     }
 }

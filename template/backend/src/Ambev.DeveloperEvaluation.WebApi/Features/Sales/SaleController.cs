@@ -21,11 +21,17 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales
     [Route("api/[controller]")]
     public class SaleController : BaseController
     {
+        private readonly ILogger<SaleController> _logger;
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
+        private const string label = "[SALE_CONTROLLER]";
 
-        public SaleController(IMediator mediator, IMapper mapper)
+        public SaleController(
+            ILogger<SaleController> logger,
+            IMediator mediator,
+            IMapper mapper)
         {
+            _logger = logger;
             _mediator = mediator;
             _mapper = mapper;
         }
@@ -44,6 +50,8 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales
             var command = _mapper.Map<CreateSaleCommand>(request);
             var response = await _mediator.Send(command, cancellationToken);
 
+            _logger.LogInformation($"{label} Sale Create");
+
             return Created(string.Empty, new ApiResponseWithData<CreateSaleResponse>
             {
                 Success = true,
@@ -57,7 +65,7 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Get([FromRoute] Guid id, CancellationToken cancellationToken)
-        {
+        { 
             var request = new GetSaleRequest { Id = id };
             var validator = new GetSaleRequestValidator();
             var validationResult = await validator.ValidateAsync(request, cancellationToken);
@@ -67,6 +75,8 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales
 
             var command = _mapper.Map<GetSaleCommand>(request.Id);
             var response = await _mediator.Send(command, cancellationToken);
+
+            _logger.LogInformation($"{label} Sale Get");
 
             return Ok(new ApiResponseWithData<GetSaleResponse>
             {
@@ -91,6 +101,8 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales
             var command = new GetSalePagedCommand() { Name = name, Page = page, Size = size };
             var response = await _mediator.Send(command);
 
+            _logger.LogInformation($"{label} Sale GetPagedOrdersForCustomer");
+
             return Ok(response);
         }
 
@@ -109,6 +121,8 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales
 
             var command = _mapper.Map<DeleteSaleCommand>(request.Id);
             await _mediator.Send(command, cancellationToken);
+
+            _logger.LogInformation($"{label} Sale modified");
 
             return Ok(new ApiResponse
             {

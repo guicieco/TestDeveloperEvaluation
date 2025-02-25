@@ -2,6 +2,7 @@
 
 using Ambev.DeveloperEvaluation.Domain.Entities;
 using AutoMapper;
+using static Ambev.DeveloperEvaluation.Application.Sales.CreateSale.CreateSaleCommand;
 
 #endregion
 
@@ -16,6 +17,7 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale
         {
             CreateMap<CreateSaleCommand, Sale>();
             CreateMap<Sale, CreateSaleResult>();
+            CreateMap<CreateSaleProduct, SaleProduct>();
         }
     }
 }

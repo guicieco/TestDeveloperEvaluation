@@ -16,12 +16,16 @@ namespace Ambev.DeveloperEvaluation.ORM.Mapping
 
             builder.HasKey(u => u.Id);
             builder.Property(u => u.Id).HasColumnType("uuid").HasDefaultValueSql("gen_random_uuid()");
-
+            builder.Property(u => u.SaleNumber).ValueGeneratedOnAdd();
+            
             builder.Property(u => u.CustomerId);
             builder.Property(u => u.BranchId);
             builder.Property(u => u.Discount);
             builder.Property(u => u.CreatedAt);
             builder.Property(u => u.UpdatedAt);
+            builder.Property(u => u.Total);
+            builder.Property(u => u.TotalDiscount);
+            
 
             builder.Property(u => u.Status)
             .HasConversion<string>()

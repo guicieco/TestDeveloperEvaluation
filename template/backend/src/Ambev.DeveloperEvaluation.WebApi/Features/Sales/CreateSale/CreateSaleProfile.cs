@@ -2,6 +2,7 @@
 
 using Ambev.DeveloperEvaluation.Application.Sales.CreateSale;
 using AutoMapper;
+using static Ambev.DeveloperEvaluation.Application.Sales.CreateSale.CreateSaleCommand;
 
 #endregion
 
@@ -16,6 +17,8 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.CreateSale
         {
             CreateMap<CreateSaleRequest, CreateSaleCommand>();
             CreateMap<CreateSaleResult, CreateSaleResponse>();
+            CreateMap<CreateSaleResult, CreateSaleResponse>();
+            CreateMap<SaleProductRequest, CreateSaleProduct>();
         }
     }
 }

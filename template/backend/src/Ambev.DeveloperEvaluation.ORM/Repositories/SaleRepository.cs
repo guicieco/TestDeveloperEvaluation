@@ -17,10 +17,27 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
             _context = context;
         }
 
-        public async Task<Sale> CreateAsync(Sale sale, CancellationToken cancellationToken = default)
+        public async Task<Sale> CreateAsync(Sale sale, List<SaleProduct> listSaleProducts, CancellationToken cancellationToken = default)
         {
-            await _context.Sales.AddAsync(sale, cancellationToken);
-            await _context.SaveChangesAsync(cancellationToken);
+            using var transactionDB = await _context.Database.BeginTransactionAsync();
+
+            try
+            {
+                await _context.Sales.AddAsync(sale, cancellationToken);
+                await _context.SaveChangesAsync(cancellationToken);
+
+                listSaleProducts.ForEach(_ => _.SaleId = sale.Id);
+
+                await _context.SaleProducts.AddRangeAsync(listSaleProducts, cancellationToken);
+                await _context.SaveChangesAsync(cancellationToken);
+                
+                await transactionDB.CommitAsync();
+            }
+            catch(Exception ex)
+            {
+                await transactionDB.RollbackAsync();
+            }
+
             return sale;
         }
 
@@ -36,6 +53,7 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
                 return await Task.FromResult(false);
 
             sale.Status = Domain.Enums.SaleStatus.Suspended;
+            sale.UpdatedAt = DateTime.UtcNow;
 
             _context.Update(sale);
             await _context.SaveChangesAsync(cancellationToken);
