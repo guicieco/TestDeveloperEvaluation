@@ -33,13 +33,13 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
         {
             var sale = await GetByIdAsync(id, cancellationToken);
             if (sale == null)
-                return false;
+                return await Task.FromResult(false);
 
             sale.Status = Domain.Enums.SaleStatus.Suspended;
 
             _context.Update(sale);
             await _context.SaveChangesAsync(cancellationToken);
-            return true;
+            return await Task.FromResult(true);
         }
     }
 }
