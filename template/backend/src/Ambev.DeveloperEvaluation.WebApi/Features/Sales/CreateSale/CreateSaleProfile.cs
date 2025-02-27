@@ -6,12 +6,15 @@ using static Ambev.DeveloperEvaluation.Application.Sales.CreateSale.CreateSaleCo
 
 #endregion
 
+/// <summary>
+/// Profile for mapping between Application and API CreateSale responses
+/// </summary>
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.CreateSale
 {
     public class CreateSaleProfile : Profile
     {
         /// <summary>
-        /// Initializes the mappings for CreateUser feature
+        /// Initializes the mappings for CreateSale feature
         /// </summary>
         public CreateSaleProfile()
         {

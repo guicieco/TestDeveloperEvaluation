@@ -9,11 +9,19 @@ using Ambev.DeveloperEvaluation.Domain.Repositories;
 
 namespace Ambev.DeveloperEvaluation.Application.Sales.GetSale
 {
+    /// <summary>
+    /// Handler for processing GetSaleCommand requests
+    /// </summary>
     public class GetSaleHandler : IRequestHandler<GetSaleCommand, GetSaleResult>
     {
         private readonly ISaleRepository _saleRepository;
         private readonly IMapper _mapper;
 
+        /// <summary>
+        /// Initializes a new instance of GetSaleHandler
+        /// </summary>
+        /// <param name="saleRepository"></param>
+        /// <param name="mapper"></param>
         public GetSaleHandler(
             ISaleRepository saleRepository,
             IMapper mapper)
@@ -22,6 +30,14 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.GetSale
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Handles the GetSaleCommand request
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        /// <exception cref="ValidationException"></exception>
+        /// <exception cref="KeyNotFoundException"></exception>
         public async Task<GetSaleResult> Handle(GetSaleCommand request, CancellationToken cancellationToken)
         {
             var validator = new GetSaleValidator();

@@ -8,15 +8,18 @@ using MediatR;
 
 namespace Ambev.DeveloperEvaluation.Application.Sales.DeleteSale
 {
+    /// <summary>
+    /// Handler for processing DeleteSaleCommand requests
+    /// </summary>
     public class DeleteSaleHandler : IRequestHandler<DeleteSaleCommand, DeleteSaleResponse>
     {
         private readonly ISaleRepository _saleRepository;
 
         /// <summary>
-        /// Initializes a new instance of DeleteUserHandler
+        /// Initializes a new instance of DeleteSaleHandler
         /// </summary>
-        /// <param name="userRepository">The user repository</param>
-        /// <param name="validator">The validator for DeleteUserCommand</param>
+        /// <param name="SaleRepository">The Sale repository</param>
+        /// <param name="validator">The validator for DeleteSaleCommand</param>
         public DeleteSaleHandler(
             ISaleRepository saleRepository)
         {
@@ -24,9 +27,9 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.DeleteSale
         }
 
         /// <summary>
-        /// Handles the DeleteUserCommand request
+        /// Handles the DeleteSaleCommand request
         /// </summary>
-        /// <param name="request">The DeleteUser command</param>
+        /// <param name="request">The DeleteSale command</param>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>The result of the delete operation</returns>
         public async Task<DeleteSaleResponse> Handle(DeleteSaleCommand request, CancellationToken cancellationToken)

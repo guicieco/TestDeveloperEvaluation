@@ -4,12 +4,18 @@ using FluentValidation;
 
 #endregion
 
+/// <summary>
+/// Validator for CreateUserRequest that defines validation rules for sale creation.
+/// </summary>
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.CreateSale
 {
     public class CreateSaleRequestValidator : AbstractValidator<CreateSaleRequest>
     {
         public CreateSaleRequestValidator()
         {
+            /// <summary>
+            /// Check: This rule checks if any product has more than 20 items
+            /// </summary>
             RuleForEach(x => x.Products)
             .ChildRules(products =>
             {

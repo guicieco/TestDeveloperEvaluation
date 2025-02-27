@@ -1,12 +1,18 @@
-﻿using Ambev.DeveloperEvaluation.WebApi.Features.Users.GetUser;
+﻿#region Using
+
 using FluentValidation;
+
+#endregion
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.GetSale
 {
+    /// <summary>
+    /// Validator for GetSaleRequest
+    /// </summary>
     public class GetSaleRequestValidator : AbstractValidator<GetSaleRequest>
     {
         /// <summary>
-        /// Initializes validation rules for GetUserRequest
+        /// Initializes validation rules for GetSaleRequest
         /// </summary>
         public GetSaleRequestValidator()
         {

@@ -7,16 +7,19 @@ using FluentValidation;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.GetSalePaged
 {
+    /// <summary>
+    /// Validator for GetSalePagedRequest
+    /// </summary
     public class GetSalePagedRequestValidator : AbstractValidator<GetSalePagedRequest>
     {
         /// <summary>
-        /// Initializes validation rules for GetUserRequest
+        /// Initializes validation rules for GetSalePagedRequest
         /// </summary>
         public GetSalePagedRequestValidator()
         {
-            //RuleFor(x => x.Id)
-            //    .NotEmpty()
-            //    .WithMessage("Sale ID is required");
+            RuleFor(x => x.Name)
+                .NotEmpty()
+                .WithMessage("Customer's name is required");
         }
     }
 }

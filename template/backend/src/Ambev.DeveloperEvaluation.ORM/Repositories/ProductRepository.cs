@@ -8,6 +8,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Ambev.DeveloperEvaluation.ORM.Repositories
 {
+    /// <summary>
+    /// Implementation of IProductRepository using Entity Framework Core
+    /// </summary>
     public class ProductRepository : IProductRepository
     {
         private readonly DefaultContext _context;
@@ -17,6 +20,12 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
             _context = context;
         }
 
+        /// <summary>
+        /// Ger product by Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         public async Task<IEnumerable<Product>> GetByIdAsync(List<Guid> id, CancellationToken cancellationToken = default) => 
             await _context.Products.Where(_ => id.Contains(_.Id)).ToListAsync(cancellationToken: cancellationToken);
     }

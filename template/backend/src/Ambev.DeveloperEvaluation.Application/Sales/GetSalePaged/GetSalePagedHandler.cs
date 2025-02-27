@@ -9,11 +9,19 @@ using MediatR;
 
 namespace Ambev.DeveloperEvaluation.Application.Sales.GetSalePaged
 {
+    /// <summary>
+    /// Handler for processing GetSalePagedCommand requests
+    /// </summary>
     public class GetSalePagedHandler : IRequestHandler<GetSalePagedCommand, GetSalePagedResult>
     {
         private readonly ISalePagedRepository _salePagedRepository;
         private readonly IMapper _mapper;
 
+        /// <summary>
+        /// Initializes a new instance of GetSalePagedHandler
+        /// </summary>
+        /// <param name="salePagedRepository"></param>
+        /// <param name="mapper"></param>
         public GetSalePagedHandler(
             ISalePagedRepository salePagedRepository,
             IMapper mapper)
@@ -22,6 +30,13 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.GetSalePaged
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Handles the GetSalePagedCommand request
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        /// <exception cref="ValidationException"></exception>
         public async Task<GetSalePagedResult> Handle(GetSalePagedCommand request, CancellationToken cancellationToken)
         {
             var validator = new GetSalePagedValidator();

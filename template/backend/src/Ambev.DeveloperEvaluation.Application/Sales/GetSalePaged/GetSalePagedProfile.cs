@@ -7,8 +7,14 @@ using AutoMapper;
 
 namespace Ambev.DeveloperEvaluation.Application.Sales.GetSalePaged
 {
+    /// <summary>
+    /// Profile for mapping between Sale entity and GetSalePagedResponse
+    /// </summary>
     public class GetSalePagedProfile : Profile
     {
+        /// <summary>
+        /// Initializes the mappings for GetSalePaged operation
+        /// </summary>
         public GetSalePagedProfile()
         {
             CreateMap<Sale, SaleForPagedDto>()

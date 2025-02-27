@@ -8,6 +8,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Ambev.DeveloperEvaluation.ORM.Repositories
 {
+    /// <summary>
+    /// Implementation of ISaleRepository using Entity Framework Core
+    /// </summary>
     public class SaleRepository : ISaleRepository
     {
         private readonly DefaultContext _context;
@@ -17,6 +20,13 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
             _context = context;
         }
 
+        /// <summary>
+        /// Insert the sale
+        /// </summary>
+        /// <param name="sale"></param>
+        /// <param name="listSaleProducts"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         public async Task<Sale> CreateAsync(Sale sale, List<SaleProduct> listSaleProducts, CancellationToken cancellationToken = default)
         {
             using var transactionDB = await _context.Database.BeginTransactionAsync();
@@ -41,11 +51,23 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
             return sale;
         }
 
+        /// <summary>
+        /// Get sale by Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         public async Task<Sale?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
         {
             return await _context.Sales.FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
         }
 
+        /// <summary>
+        /// Delete sale
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken = default)
         {
             var sale = await GetByIdAsync(id, cancellationToken);

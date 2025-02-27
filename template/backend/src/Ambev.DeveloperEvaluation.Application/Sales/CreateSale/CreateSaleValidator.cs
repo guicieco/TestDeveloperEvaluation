@@ -6,6 +6,9 @@ using FluentValidation;
 
 namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale
 {
+    /// <summary>
+    /// Validator for DeleteSaleCommand
+    /// </summary>
     public class CreateSaleCommandValidator : AbstractValidator<CreateSaleCommand>
     {
         public CreateSaleCommandValidator()

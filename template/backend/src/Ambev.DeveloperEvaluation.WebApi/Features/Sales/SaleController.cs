@@ -17,6 +17,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales
 {
+    /// <summary>
+    /// Controller for managing sale operations
+    /// </summary>
     [ApiController]
     [Route("api/[controller]")]
     public class SaleController : BaseController
@@ -26,6 +29,12 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales
         private readonly IMapper _mapper;
         private const string label = "[SALE_CONTROLLER]";
 
+        /// <summary>
+        /// Initializes a new instance of SaleController
+        /// </summary>
+        /// <param name="logger"></param>
+        /// <param name="mediator"></param>
+        /// <param name="mapper"></param>
         public SaleController(
             ILogger<SaleController> logger,
             IMediator mediator,
@@ -36,6 +45,12 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Create a new sale
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(typeof(ApiResponseWithData<CreateSaleResponse>), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
@@ -60,11 +75,17 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales
             });
         }
 
+        /// <summary>
+        /// Get sale by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(ApiResponseWithData<GetSaleResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Get([FromRoute] Guid id, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetById([FromRoute] Guid id, CancellationToken cancellationToken)
         { 
             var request = new GetSaleRequest { Id = id };
             var validator = new GetSaleRequestValidator();
@@ -85,7 +106,15 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales
                 Data = _mapper.Map<GetSaleResponse>(response)
             });
         }
-
+        
+        /// <summary>
+        /// Get Sale paged
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="page"></param>
+        /// <param name="size"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         [HttpGet("/paged", Name = "GetPagedSale")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesDefaultResponseType]
@@ -106,6 +135,12 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales
             return Ok(response);
         }
 
+        /// <summary>
+        /// Delete is virtual, change status of sale
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]

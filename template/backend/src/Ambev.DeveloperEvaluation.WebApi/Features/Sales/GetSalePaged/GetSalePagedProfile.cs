@@ -7,10 +7,13 @@ using AutoMapper;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.GetSalePaged
 {
+    /// <summary>
+    /// Profile for mapping GetSalePaged feature requests to commands
+    /// </summary>
     public class GetSalePagedProfile : Profile
     {
         /// <summary>
-        /// Initializes the mappings for GetUser feature
+        /// Initializes the mappings for GetSalePaged feature
         /// </summary>
         public GetSalePagedProfile()
         {
